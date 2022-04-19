@@ -1,15 +1,17 @@
-import os
-
 from behave import *
-from selenium import webdriver
+from Pages.CalculatorPage import CalculatorPage
+from Utilities.NumbersEnum import Digits
 
 use_step_matcher('re')
 
 
-@given('I open the windows 10 calculator')
-def step_impl(context):
-    os.startfile(r'C:\Users\Carlos_Medina\Documents\pythonWiniumCalculatorSample\Drivers\Winium.Desktop.Driver.exe')
-    driver = webdriver.Remote(command_executor='http://localhost:9999', desired_capabilities={
-        "app": r'C:\Windows\System32\calc.exe',
-        "args": '-port 345'
-    })
+@when('I click on the digit "(.*)"')
+@Given('I click on the digit "(.*)"')
+def step_impl(context, number):
+    calculator = CalculatorPage(context.driver)
+    calculator.clickDigit(number)
+
+@Then('I see the number "(.*)" being displayed')
+def step_impl(context, number):
+    calculator = CalculatorPage(context.driver)
+    assert calculator.getDisplayedNumber() == number

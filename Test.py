@@ -9,7 +9,7 @@ driver = webdriver.Remote(command_executor='http://localhost:9999', desired_capa
     "args": '-port 345'
 })
 
-driver.find_element_by_name("Two").click()
+driver.find_element_by_id("num1Button").click()
 driver.find_element_by_name("Multiply by").click()
 driver.find_element_by_name("Eight").click()
 driver.find_element_by_name("Equals").click()
