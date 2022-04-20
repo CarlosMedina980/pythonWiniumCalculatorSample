@@ -1,4 +1,7 @@
+import clipboard
+from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.common.by import By
+from selenium.webdriver.common.keys import Keys
 
 from Pages.BasePage import BasePage
 
@@ -27,13 +30,19 @@ class CalculatorPage(BasePage):
     Backspace_Button = By.ID, 'backSpaceButton'
 
     # Display
-    Display_Element = By.ID, 'CalculatorResults'
+    Display_Text = By.XPATH, "/*[@AutomationId='CalculatorResults' and @ControlType='ControlType.Text' and " \
+                             "@LocalizedControlType='text']"
 
     def __init__(self, driver):
         super().__init__(driver)
+
+    def clickDigitWaiting(self, number):
+        self.find_element_waiting_clickability(By.ID, 'num{}Button'.format(number)).click()
 
     def clickDigit(self, number):
         self.find_element(By.ID, 'num{}Button'.format(number)).click()
 
     def getDisplayedNumber(self):
-        self.find_element(*self.Display_Element).text()
+        actions = ActionChains(self.driver)
+        actions.key_down(Keys.CONTROL).send_keys('c').key_up(Keys.CONTROL).perform()
+        return clipboard.paste()

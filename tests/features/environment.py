@@ -27,7 +27,6 @@ def before_scenario(context, scenario):
         "app": r'C:\Windows\System32\calc.exe',
         "args": '-port 345'})
 
-
 def after_scenario(context, scenario):
     context.driver.find_element_by_name("Close Calculator").click()
     os.system("TASKKILL /F /IM Winium.Desktop.Driver.exe")

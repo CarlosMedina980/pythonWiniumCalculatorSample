@@ -1,6 +1,6 @@
 from behave import *
+
 from Pages.CalculatorPage import CalculatorPage
-from Utilities.NumbersEnum import Digits
 
 use_step_matcher('re')
 
@@ -11,7 +11,9 @@ def step_impl(context, number):
     calculator = CalculatorPage(context.driver)
     calculator.clickDigit(number)
 
+
 @Then('I see the number "(.*)" being displayed')
 def step_impl(context, number):
     calculator = CalculatorPage(context.driver)
-    assert calculator.getDisplayedNumber() == number
+    actualnumber = calculator.getDisplayedNumber()
+    assert actualnumber == number, "\n The Expected Displayed Number is " + number + "\nActual Number is " + actualnumber
