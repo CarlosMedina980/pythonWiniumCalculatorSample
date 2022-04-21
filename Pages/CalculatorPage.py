@@ -12,9 +12,9 @@ class CalculatorPage(BasePage):
     Positive_Negative = By.ID, 'negateButton'
 
     # Operators
-    Division_Button = By.ID, 'negateButton'
+    Division_Button = By.ID, 'divideButton'
     Multiplication_Button = By.ID, 'multiplyButton'
-    Minus_Button = By.ID, 'minusButton'
+    Substraction_Button = By.ID, 'minusButton'
     Addition_Button = By.ID, 'plusButton'
     Equals_Button = By.ID, 'equalButton'
 
@@ -22,6 +22,8 @@ class CalculatorPage(BasePage):
     Reciprocal_Button = By.ID, 'invertButton'
     Square_Button = By.ID, 'xpower2Button'
     Square_Root_Button = By.ID, 'squareRootButton'
+
+
 
     # Display Controls
     Percent_Button = By.ID, 'percentButton'
@@ -46,3 +48,26 @@ class CalculatorPage(BasePage):
         actions = ActionChains(self.driver)
         actions.key_down(Keys.CONTROL).send_keys('c').key_up(Keys.CONTROL).perform()
         return clipboard.paste()
+
+    def pressKeyBoardKeys(self, keylist):
+        self.driver.find_element(*self.Window_Name).send_keys(keylist)
+
+    def clickNumber(self, number):
+        self.driver.find_element(*self.Title).click()
+        for digit in number:
+            self.find_element_waiting_clickability(By.ID, 'num{}Button'.format(digit)).click()
+
+    def clickmultiplication(self):
+        self.driver.find_element(*self.Multiplication_Button).click()
+
+    def clickequals(self):
+        self.driver.find_element(*self.Equals_Button).click()
+
+    def clickaddition(self):
+        self.driver.find_element(*self.Addition_Button).click()
+
+    def clicksubtraction(self):
+        self.driver.find_element(*self.Substraction_Button).click()
+
+    def clickdivision(self):
+        self.driver.find_element(*self.Division_Button).click()
